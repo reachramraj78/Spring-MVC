@@ -1,5 +1,7 @@
 package com.balaji.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,16 @@ public class StudentDAOImpl implements StudentDAO{
 	public void add(Student student) {
 		hibernateTemplate.save(student);
 		
+	}
+
+	public List<Student> findAll() {
+		return hibernateTemplate.loadAll(Student.class);
+	}
+
+	public void deleteById(Integer id) {
+		  Student student = new Student();
+		  student.setId(id);
+          hibernateTemplate.delete(student);		
 	}
 
 }

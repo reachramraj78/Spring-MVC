@@ -1,10 +1,13 @@
 package com.balaji.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.balaji.model.Student;
@@ -17,8 +20,9 @@ public class StudentController {
 	private StudentService studentService;
 	
 	@RequestMapping("/getAll")
-	public ModelAndView sayHello() {
-		return new ModelAndView("getAllStudents");
+	public ModelAndView getAll() {
+		List<Student> students = studentService.findAll();
+		return new ModelAndView("getAllStudents","students",students);
 	}
 	
 	@RequestMapping("/addStudent")
@@ -30,8 +34,14 @@ public class StudentController {
 	@RequestMapping(value = "/saveStudent",method = RequestMethod.POST)
 	public String saveStudent(Student student) {
 		studentService.add(student);
-		return "success";
-		
+		return "redirect:/getAll";
+	}
+	
+	
+	@RequestMapping(value = "/deleteById")
+	public String saveStudent(@RequestParam("id") Integer id) {
+		studentService.deleteById(id);
+		return "redirect:/getAll";
 	}
 
 }

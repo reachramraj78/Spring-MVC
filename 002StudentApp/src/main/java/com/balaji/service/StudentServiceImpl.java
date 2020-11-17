@@ -1,5 +1,7 @@
 package com.balaji.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,15 @@ public class StudentServiceImpl implements StudentService{
 
 	public void add(Student student) {
 		studentDAO.add(student);
+	}
+
+	public List<Student> findAll() {
+		return studentDAO.findAll();
+	}
+
+	public void deleteById(Integer id) {
+		studentDAO.deleteById(id);
+		
 	}
 
 }
